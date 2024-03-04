@@ -1,0 +1,3 @@
+<!-- need to use var because of multiple declaration issue, otherwise should move to a separate JS function where we can define let within the function -->
+var form = $("<%= escape_javascript(render 'comments/form', comment: @comment) %>");
+$("#<%= dom_id(@comment) %>").replaceWith(form);
