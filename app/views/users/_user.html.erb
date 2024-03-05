@@ -1,4 +1,4 @@
-<div class="media">
+<div id="user_top_section" class="media">
   <%= image_tag user.avatar_image, class: "mr-3 rounded-circle", width: 128 %>
 
   <div class="media-body">
@@ -49,7 +49,7 @@
         <% end %>
       </div>
 
-      <% if policy(@user).update? %>
+      <% if policy(user).update? %>
         <div>
           <%=
             link_to "#",
@@ -71,16 +71,16 @@
 
     <div class="row mb-3">
       <div class="col">
-        <% follow_request = current_user.pending_received_follow_requests.find_by(sender: @user) %>
+        <% follow_request = current_user.pending_received_follow_requests.find_by(sender: user) %>
 
         <% if follow_request %>
           <p class="lead text-center">
-            <%= @user.username %> has sent you a follow request.
+            <%= user.username %> has sent you a follow request.
           </p>
 
           <% follow_request.status = "accepted" %>
 
-          <%= form_with(model: follow_request) do |form| %>
+          <%= form_with(model: follow_request, local: false) do |form| %>
             <%= form.hidden_field :status %>
 
             <%= form.submit "Accept follow request", class: "btn btn-outline-success btn-block mb-3" %>
@@ -88,7 +88,7 @@
 
           <% follow_request.status = "rejected" %>
 
-          <%= form_with(model: follow_request) do |form| %>
+          <%= form_with(model: follow_request, local: false) do |form| %>
             <%= form.hidden_field :status %>
 
             <%= form.submit "Reject follow request", class: "btn btn-outline-danger btn-block mb-3" %>
@@ -99,7 +99,7 @@
 
     <div class="row mb-4">
       <div class="col">
-        <%= render "follow_requests/follow_unfollow", sender: current_user, recipient: @user %>
+        <%= render "follow_requests/follow_unfollow", sender: current_user, recipient: user %>
       </div>
     </div>
 
@@ -133,7 +133,7 @@
     target: "#{dom_id(user)}_following"
 %>
 
-<% if policy(@user).update? %>
+<% if policy(user).update? %>
   <%=
     render "users/connected_users_modal",
       user: user,

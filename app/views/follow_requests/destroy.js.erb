@@ -1,0 +1,3 @@
+var existingButton = $("#<%= dom_id(@follow_request.sender)%>_<%= dom_id(@follow_request.recipient)%>_follow_unfollow");
+var updatedButton = $("<%= j(render "follow_requests/follow_unfollow", sender: @follow_request.sender, recipient: @follow_request.recipient) %>");
+existingButton.replaceWith(updatedButton);
